@@ -15,12 +15,6 @@ const FooterGird = styled(Grid)<PaperProps>(({ theme }) => ({
   alignItems: 'center',
 }));
 
-const RightsGrid = styled(Grid)<PaperProps>(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'flex-end',
-  alignItems: 'center',
-}));
-
 const FooterLinks = styled(Link)<PaperProps>(({ theme }) => ({
   cursor: 'pointer',
 }));
@@ -38,9 +32,9 @@ const Footer = (): JSX.Element => {
         <FooterGird item xs={2}>
           <FooterLinks>Link 2</FooterLinks>
         </FooterGird>
-        <RightsGrid item xs={5}>
+        <FooterGird item xs={5} style={{ justifyContent: 'flex-end' }}>
           <p>@ 2020 Morning App. All rights Reserved.</p>
-        </RightsGrid>
+        </FooterGird>
       </Grid>
     </StyledPaper>
   );

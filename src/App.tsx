@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Home from './screens/Home';
 import React from 'react';
+import Weather from './screens/Weather';
 
 const App = (): JSX.Element => {
   return (
@@ -14,6 +15,7 @@ const App = (): JSX.Element => {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/weather" element={<Weather />} />
         </Routes>
       </Router>
       <Footer />

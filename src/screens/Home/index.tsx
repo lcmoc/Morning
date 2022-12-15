@@ -24,7 +24,7 @@ const Home = (): JSX.Element => (
         name="Weather"
         txt="See the Weather of today"
         imgSrc="someImage"
-        path="someLink"
+        path="/weather"
       />
     </Grid>
   </Grid>

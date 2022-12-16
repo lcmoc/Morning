@@ -53,21 +53,10 @@ const Weather = (): JSX.Element => {
           measure={apiData?.hourly_units.temperature_2m}
         />
       </Grid>
-      <Grid
-        container
-        spacing={0}
-        direction="row"
-        alignItems="center"
-        justifyContent="space-around"
-      >
-        <Grid item xs={10}>
-          <DayDiagram
-            times={getTimes(apiData?.hourly.time)}
-            measures={getMeasures(apiData?.hourly.temperature_2m)}
-          />
-          test
-        </Grid>
-      </Grid>
+      <DayDiagram
+        times={getTimes(apiData?.hourly.time)}
+        measures={getMeasures(apiData?.hourly.temperature_2m)}
+      />
     </div>
   );
 };

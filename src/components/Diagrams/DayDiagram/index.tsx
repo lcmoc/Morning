@@ -29,6 +29,7 @@ ChartJS.register(
 
 export const options = {
   responsive: true,
+  maintainAspectRatio: true,
   plugins: {
     legend: {
       position: 'top' as const,
@@ -37,6 +38,25 @@ export const options = {
       display: true,
       text: 'Wetterdaten',
     },
+  },
+};
+
+const styles = {
+  Container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column' as 'column',
+    width: '100%',
+  },
+
+  ChartContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column' as 'column',
+    width: '800px',
+    height: '500px',
   },
 };
 
@@ -55,9 +75,11 @@ const DayDiagram = ({ times, measures }: WeekDiagramProps): JSX.Element => {
   };
 
   return (
-    <>
-      <Line options={options} data={data} />
-    </>
+    <div style={styles.Container}>
+      <div style={styles.ChartContainer}>
+        <Line options={options} data={data} />
+      </div>
+    </div>
   );
 };
 

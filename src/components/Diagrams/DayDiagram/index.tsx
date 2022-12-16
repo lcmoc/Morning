@@ -45,7 +45,7 @@ const DayDiagram = ({ times, measures }: WeekDiagramProps): JSX.Element => {
     labels: times,
     datasets: [
       {
-        label: 'Sales',
+        label: 'Grad',
         data: measures,
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgba(255, 99, 132, 1)',

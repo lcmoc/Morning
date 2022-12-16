@@ -30,8 +30,6 @@ const CurrentTemperatureCard = ({
   const currentHour = time.split('T').splice(1)[0];
   const nextHour = parseInt(currentHour) + 1;
 
-  console.log('nextHour', nextHour); // eslint-disable-line
-
   return (
     <Card sx={{ maxWidth: 800, minWidth: 300 }}>
       <CardActionArea>

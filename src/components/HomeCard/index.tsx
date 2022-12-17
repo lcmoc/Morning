@@ -12,19 +12,29 @@ export interface HomeCardProps {
   txt: string;
   imgSrc: string;
   path: string;
+  alt: string;
 }
 
-const HomeCard = ({ name, txt, imgSrc, path }: HomeCardProps): JSX.Element => {
+const HomeCard = ({
+  name,
+  txt,
+  imgSrc,
+  path,
+  alt,
+}: HomeCardProps): JSX.Element => {
   return (
     <Link href={path}>
       <Card sx={{ maxWidth: 800 }}>
         <CardActionArea>
-          <CardMedia
-            component="img"
-            height="140"
-            image={imgSrc}
-            alt="green iguana"
-          />
+          <CardContent>
+            <CardMedia
+              component="img"
+              height="60"
+              image={imgSrc}
+              alt={alt}
+              style={{ width: '40%' }}
+            />
+          </CardContent>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {name}

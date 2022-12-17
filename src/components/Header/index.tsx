@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 const Header = (): JSX.Element => {
-  const pages = ['Products', 'Pricing', 'Blog'];
+  const pages = [''];
   const settings = ['Logout'];
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(

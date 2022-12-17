@@ -4,6 +4,7 @@ import { getMeasures, getTimes } from '../../components/Helpers';
 import CurrentTemperatureCard from '../../components/CurrentTemperatureCard';
 import DayDiagram from '../../components/Diagrams/DayDiagram';
 import { Grid } from '@mui/material';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 interface ApiData {
   time: [];
@@ -32,13 +33,17 @@ const Weather = (): JSX.Element => {
       });
   }, []);
   if (apiData === null) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-screen w-full flex items-center justify-center flex-col">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   const currentTemp = apiData?.current_weather;
 
   return (
-    <div>
+    <div className="h-screen mt-24">
       <Grid
         container
         spacing={0}

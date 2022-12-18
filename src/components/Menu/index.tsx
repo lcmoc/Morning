@@ -2,7 +2,7 @@ import './styles.css';
 
 import React, { useEffect } from 'react';
 
-import Content from '../../components/Content';
+import Content from '../Content';
 import MenuLinks from './components/MenuLinks';
 import classNames from 'classnames';
 import { useDoc } from '@syncstate/react';

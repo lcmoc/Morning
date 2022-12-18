@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getMeasures, getTimes } from '../../components/Helpers';
 
-import CurrentTemperatureCard from '../../components/CurrentTemperatureCard';
+import CurrentTemperatureCard from '../../components/Cards/CurrentTemperatureCard';
 import DayDiagram from '../../components/Diagrams/DayDiagram';
 import { Grid } from '@mui/material';
 import LoadingSpinner from '../../components/LoadingSpinner';

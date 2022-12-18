@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import HomeCard from '../../components/HomeCard';
+import HomeCard from '../../components/Cards/HomeCard';
 import React from 'react';
 import SbbPng from '../../assets/u-bahn.png';
 import WeatherPng from '../../assets/weather.png';
@@ -17,7 +17,7 @@ const Home = (): JSX.Element => (
       justifyContent="space-around"
       style={{ minHeight: '100vh' }}
     >
-      <Grid item xs={3}>
+      <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
         <HomeCard
           name="sbb"
           txt="See sbb connections"
@@ -26,7 +26,7 @@ const Home = (): JSX.Element => (
           alt="u-bahn image"
         />
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
         <HomeCard
           name="Weather"
           txt="See the Weather of today"

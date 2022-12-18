@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getMeasures, getTimes } from '../../components/Helpers';
+import {
+  getMeasures,
+  getTimes,
+  getTodaysMaxTemp,
+  getTodaysMinTemp,
+  getTodaysSunRise,
+  getTodaysSunSet,
+} from '../../components/Helpers';
 
+import CurrentMaxMinTemperatureCard from '../../components/Cards/CurrentMaxMinTemperatureCard';
+import CurrentSunriseCard from '../../components/Cards/CurrentSunRiseCard';
 import CurrentTemperatureCard from '../../components/Cards/CurrentTemperatureCard';
 import DayDiagram from '../../components/Diagrams/DayDiagram';
 import { Grid } from '@mui/material';
@@ -16,7 +25,7 @@ const Weather = (): JSX.Element => {
   async function getDataFromAPI(): Promise<ApiData | undefined> {
     try {
       const response = await fetch(
-        'https://api.open-meteo.com/v1/forecast?latitude=47.37&longitude=8.55&hourly=temperature_2m&current_weather=true&timezone=Europe%2FBerlin&past_days=1',
+        'https://api.open-meteo.com/v1/forecast?latitude=47.37&longitude=8.55&hourly=temperature_2m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&current_weather=true&timezone=Europe%2FBerlin',
       );
 
       return await response.json();
@@ -42,6 +51,8 @@ const Weather = (): JSX.Element => {
 
   const currentTemp = apiData?.current_weather;
 
+  console.log('apiData', apiData); // eslint-disable-line
+
   return (
     <div className="h-screen mt-24">
       <Grid
@@ -51,12 +62,35 @@ const Weather = (): JSX.Element => {
         alignItems="center"
         justifyContent="space-around"
       >
-        <h1>Weather</h1>
-        <CurrentTemperatureCard
-          temperature={currentTemp.temperature}
-          time={currentTemp.time}
-          measure={apiData?.hourly_units.temperature_2m}
-        />
+        <h1>Wetter</h1>
+        <Grid
+          container
+          spacing={4}
+          direction="row"
+          alignItems="start"
+          justifyContent="space-around"
+        >
+          <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+            <CurrentTemperatureCard
+              temperature={currentTemp.temperature}
+              time={currentTemp.time}
+              measure={apiData?.hourly_units.temperature_2m}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+            <CurrentSunriseCard
+              sunrise={getTodaysSunRise(apiData?.daily?.sunrise)}
+              sunset={getTodaysSunSet(apiData?.daily?.sunset)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+            <CurrentMaxMinTemperatureCard
+              minTemp={getTodaysMinTemp(apiData?.daily?.temperature_2m_min)}
+              maxTemp={getTodaysMaxTemp(apiData?.daily?.temperature_2m_max)}
+              measure={apiData?.hourly_units.temperature_2m}
+            />
+          </Grid>
+        </Grid>
       </Grid>
       <DayDiagram
         times={getTimes(apiData?.hourly.time)}

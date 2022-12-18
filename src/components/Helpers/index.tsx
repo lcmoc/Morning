@@ -48,14 +48,6 @@ export const getCurrentDayTimes = (dates: string[]): String[] => {
   return currentDayTimes;
 };
 
-// TODO: Implement those functions in weather to display the correct data
-// export const getCurrentStartAndEndHour = (times) => {
-//  const currentDayStartHour: number = times.indexOf(
-//     `${currentDayTimes[0]}T00:00`, // eslint-disable-line
-// }
-
-// export const currentDayEndHour = currentDayStartHour + 25;
-
 export const getTimes = (times: string[]): string[] => {
   const currentTimes = times.splice(0, 24).map((oneDate: string) => {
     const parts = oneDate.split('T', 2);
@@ -72,4 +64,24 @@ export const getMeasures = (measures: number[]): number[] => {
   });
 
   return currentMeasures;
+};
+
+export const getTodaysSunSet = (sunset: string[]): string => {
+  const times = getTimes(sunset);
+
+  return times[0];
+};
+
+export const getTodaysSunRise = (sunset: string[]): string => {
+  const times = getTimes(sunset);
+
+  return times[0];
+};
+
+export const getTodaysMaxTemp = (maxTemps: number[]): number => {
+  return maxTemps[0];
+};
+
+export const getTodaysMinTemp = (minTemps: number[]): number => {
+  return minTemps[0];
 };

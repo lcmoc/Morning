@@ -42,21 +42,25 @@ export const options = {
 };
 
 const styles = {
-  Container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column' as 'column',
-    width: '100%',
-  },
-
   ChartContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column' as 'column',
-    width: '800px',
-    height: '500px',
+    width: '80%',
+    height: '100%',
+  },
+  '@media (min-width: 600px)': {
+    ChartContainer: {
+      width: '600px',
+      height: '400px',
+    },
+  },
+  '@media (min-width: 900px)': {
+    ChartContainer: {
+      width: '900px',
+      height: '600px',
+    },
   },
 };
 
@@ -75,8 +79,8 @@ const DayDiagram = ({ times, measures }: WeekDiagramProps): JSX.Element => {
   };
 
   return (
-    <div style={styles.Container}>
-      <div style={styles.ChartContainer}>
+    <div className="flex justify-center items-center flex-col w-full">
+      <div style={styles.ChartContainer} className="md:w-32 lg:w-48">
         <Line options={options} data={data} />
       </div>
     </div>

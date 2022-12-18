@@ -23,7 +23,7 @@ const HomeCard = ({
   alt,
 }: HomeCardProps): JSX.Element => {
   return (
-    <Link href={path}>
+    <Link href={path} style={{ textDecoration: 'none' }}>
       <Card sx={{ maxWidth: 800 }}>
         <CardActionArea>
           <CardContent>

@@ -1,16 +1,17 @@
 import './styles.css';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import Content from '../../components/Content';
 import MenuLinks from './components/MenuLinks';
 import classNames from 'classnames';
+import { useDoc } from '@syncstate/react';
 
 const Menu = (): JSX.Element => {
-  const [active, setActive] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useDoc('/isMenuOpen');
 
   const handleClick = (): any => {
-    active ? setActive(false) : setActive(true);
+    setIsMenuOpen(!isMenuOpen); // eslint-disable-line
   };
 
   useEffect(() => {
@@ -21,21 +22,25 @@ const Menu = (): JSX.Element => {
   }, []);
 
   return (
-    <div className={active ? 'ContentContainer active' : 'ContentContainer'}>
+    <div
+      className={
+        (isMenuOpen as boolean) ? 'ContentContainer active' : 'ContentContainer'
+      }
+    >
       <div
         className={classNames('main-container', {
-          'overflow-hidden filter blur-sm': active,
+          'overflow-hidden filter blur-sm': isMenuOpen,
         })}
       >
         <div
           className={classNames(
             'main relative origin-left z-10 transition duration-500',
             {
-              'cursor-pointer ': active,
+              'cursor-pointer ': isMenuOpen,
             },
           )}
           onClick={() => {
-            if (active) {
+            if (isMenuOpen as boolean) {
               handleClick();
             }
           }}
@@ -43,7 +48,7 @@ const Menu = (): JSX.Element => {
           <div className="relative w-full min-h-screen">
             <div
               className={classNames('absolute w-full h-auto bg-white', {
-                'rounded-xl': active,
+                'rounded-xl': isMenuOpen,
               })}
             >
               <Content />
@@ -59,7 +64,7 @@ const Menu = (): JSX.Element => {
         className={classNames(
           'fixed bottom-5 w-full z-20 flex items-center justify-center',
           {
-            hidden: !active,
+            hidden: !isMenuOpen, //eslint-disable-line
           },
         )}
       >

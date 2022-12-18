@@ -11,27 +11,27 @@ import React from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useDoc } from '@syncstate/react';
 
 const Header = (): JSX.Element => {
+  const [setIsMenuOpen] = useDoc('/isMenuOpen');
   const pages = [''];
   const settings = ['Logout'];
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null,
-  );
+  const [anchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>): void => {
-    setAnchorElNav(event.currentTarget);
+    setIsMenuOpen(true);
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>): void => {
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = (): void => {
-    setAnchorElNav(null);
+    setIsMenuOpen(false);
   };
 
   const handleCloseUserMenu = (): void => {
@@ -88,13 +88,7 @@ const Header = (): JSX.Element => {
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            ></Menu>
           </Box>
           <Typography
             variant="h5"

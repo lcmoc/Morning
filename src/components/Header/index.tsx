@@ -3,6 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import { Cookies } from 'react-cookie';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -15,8 +16,8 @@ import { useDoc } from '@syncstate/react';
 
 const Header = (): JSX.Element => {
   const [isMenuOpen, setIsMenuOpen] = useDoc('/isMenuOpen'); //eslint-disable-line
+
   const pages = [''];
-  const settings = ['Logout'];
 
   const [anchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -36,6 +37,13 @@ const Header = (): JSX.Element => {
 
   const handleCloseUserMenu = (): void => {
     setAnchorElUser(null);
+  };
+
+  const cookies = new Cookies();
+
+  const logOut = (): void => {
+    cookies.remove('userIsLoggedIn');
+    window.location.reload();
   };
 
   return (
@@ -140,13 +148,11 @@ const Header = (): JSX.Element => {
                 horizontal: 'right',
               }}
               open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              onClose={() => handleCloseUserMenu()}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key={'logout'} onClick={logOut}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

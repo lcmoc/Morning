@@ -5,18 +5,20 @@ import { Grid } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import TextField from '@mui/material/TextField';
 import testData from './testdata.json';
-import { useDoc } from '@syncstate/react';
+import { useCookies } from 'react-cookie';
 
 const Login = (): JSX.Element => {
-  const [userIsLoggedIn, setUserIsLoggedIn] = useDoc('/userIsLoggedIn'); //eslint-disable-line
   const [email, setEmail] = useState<String | any>('');
   const [password, setPassword] = useState<String | any>('');
   const [error, setError] = useState<boolean>(false);
+  const [cookies, setCookie] = useCookies(['userIsLoggedIn']); //eslint-disable-line
 
   const checkCredentials = (email: string, password: string): void => {
     for (const entry of testData.students) {
       if (entry.email === email && entry.password === password) {
-        setUserIsLoggedIn(true);
+        setCookie('userIsLoggedIn', true, {
+          path: '/',
+        });
         setError(false);
       } else {
         setError(true);

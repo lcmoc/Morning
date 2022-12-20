@@ -3,6 +3,7 @@ import './index.css';
 import * as remote from '@syncstate/remote-client';
 
 import App from './App';
+import { CookiesProvider } from 'react-cookie';
 import { Provider } from '@syncstate/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -18,9 +19,11 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <CookiesProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </CookiesProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

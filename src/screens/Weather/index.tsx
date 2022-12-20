@@ -51,8 +51,6 @@ const Weather = (): JSX.Element => {
 
   const currentTemp = apiData?.current_weather;
 
-  console.log('apiData', apiData); // eslint-disable-line
-
   return (
     <div className="h-screen mt-24">
       <Grid

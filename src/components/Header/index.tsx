@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import { useDoc } from '@syncstate/react';
 
 const Header = (): JSX.Element => {
-  const [setIsMenuOpen] = useDoc('/isMenuOpen');
+  const [isMenuOpen, setIsMenuOpen] = useDoc('/isMenuOpen'); //eslint-disable-line
   const pages = [''];
   const settings = ['Logout'];
 

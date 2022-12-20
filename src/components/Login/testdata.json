@@ -1,0 +1,12 @@
+{
+  "students": [
+    {
+      "email": "test@test",
+      "password": "test"
+    },
+    {
+      "email": "tes2t",
+      "password": "test2"
+    }
+  ]
+}

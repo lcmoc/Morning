@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom/client';
 import { createDocStore } from '@syncstate/core';
 import reportWebVitals from './reportWebVitals';
 
-const store = createDocStore({ isMenuOpen: false }, [
+const store = createDocStore({ isMenuOpen: false, userIsLoggedIn: false }, [
   remote.createInitializer(),
 ]);
 

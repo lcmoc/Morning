@@ -79,9 +79,13 @@ const DayDiagram = ({ times, measures }: WeekDiagramProps): JSX.Element => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col w-full">
-      <div style={styles.ChartContainer} className="md:w-32 lg:w-48">
+    <div className="flex justify-center items-center flex-col w-full bg-gray-50">
+      <div
+        style={styles.ChartContainer}
+        className="md:w-32 lg:w-48 mt-10 mb-24"
+      >
         <Line options={options} data={data} />
+        <hr />
       </div>
     </div>
   );

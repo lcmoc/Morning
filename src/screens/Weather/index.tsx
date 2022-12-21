@@ -1,19 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import {
-  getMeasures,
-  getTimes,
-  getTodaysMaxTemp,
-  getTodaysMinTemp,
-  getTodaysSunRise,
-  getTodaysSunSet,
-} from '../../components/Helpers';
+import React, { useEffect, useRef, useState } from 'react';
 
-import CurrentMaxMinTemperatureCard from '../../components/Cards/CurrentMaxMinTemperatureCard';
-import CurrentSunriseCard from '../../components/Cards/CurrentSunRiseCard';
 import CurrentTemperatureCard from '../../components/Cards/CurrentTemperatureCard';
 import DayDiagram from '../../components/Diagrams/DayDiagram';
-import { Grid } from '@mui/material';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { getTimes } from '../../components/Helpers';
 
 interface ApiData {
   time: [];
@@ -21,7 +11,9 @@ interface ApiData {
 
 const Weather = (): JSX.Element => {
   const [apiData, setApiData] = useState<any | null>(null);
-
+  const [temps, setTemps] = useState<any | any>(0);
+  const tempRefs: any = useRef([]);
+  const dayRefs: any = useRef([]);
   async function getDataFromAPI(): Promise<ApiData | undefined> {
     try {
       const response = await fetch(
@@ -33,10 +25,34 @@ const Weather = (): JSX.Element => {
       console.error(error); //eslint-disable-line
     }
   }
+  const getSplittedDays = (allDays: string[], length: number): string[][] => {
+    const arrayLength = allDays.length / length;
+    const result = [];
+    const alldaysCopy = JSON.parse(JSON.stringify(allDays));
+
+    for (let i = 0; i < arrayLength; i++) {
+      const counter = i;
+      result.push(alldaysCopy.slice(counter * 24, (counter + 1) * 24));
+    }
+    return result;
+  };
+
+  const getSplittetTemps = (allDays: number[], length: number): number[][] => {
+    const arrayLength = allDays.length / length;
+    const result = [];
+    for (let i = 0; i < arrayLength; i++) {
+      result.push(allDays.slice(i * 24, (i + 1) * 24));
+    }
+    return result;
+  };
 
   useEffect(() => {
     getDataFromAPI()
-      .then((data) => setApiData(data))
+      .then((data: any) => {
+        tempRefs.current = getSplittetTemps(data?.hourly.temperature_2m, 24);
+        dayRefs.current = getSplittedDays(data?.hourly.time, 24);
+        setApiData(data);
+      })
       .catch((error) => {
         console.error(error); //eslint-disable-line
       });
@@ -49,51 +65,34 @@ const Weather = (): JSX.Element => {
     );
   }
 
-  const currentTemp = apiData?.current_weather;
-
   return (
     <div className="h-screen mt-24">
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="space-around"
-      >
-        <h1>Wetter</h1>
-        <Grid
-          container
-          spacing={4}
-          direction="row"
-          alignItems="start"
-          justifyContent="space-around"
-        >
-          <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-            <CurrentTemperatureCard
-              temperature={currentTemp.temperature}
-              time={currentTemp.time}
-              measure={apiData?.hourly_units.temperature_2m}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-            <CurrentSunriseCard
-              sunrise={getTodaysSunRise(apiData?.daily?.sunrise)}
-              sunset={getTodaysSunSet(apiData?.daily?.sunset)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-            <CurrentMaxMinTemperatureCard
-              minTemp={getTodaysMinTemp(apiData?.daily?.temperature_2m_min)}
-              maxTemp={getTodaysMaxTemp(apiData?.daily?.temperature_2m_max)}
-              measure={apiData?.hourly_units.temperature_2m}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-      <DayDiagram
-        times={getTimes(apiData?.hourly.time)}
-        measures={getMeasures(apiData?.hourly.temperature_2m)}
-      />
+      <div className="flex items-center justify-center">
+        <h1 className="text-6xl font-normal leading-normal mt-0 mb-2 text-sky-800">
+          Wetter
+        </h1>
+      </div>
+
+      <div className="flex items-center justify-center mr-8 ml-8 overflow-x-auto">
+        {dayRefs.current.map((day: any, index: any): JSX.Element => {
+          return (
+            <div
+              key={day[index]}
+              onClick={(event) => {
+                setTemps(tempRefs.current[index]);
+              }}
+            >
+              <CurrentTemperatureCard
+                temperature={tempRefs.current[index]}
+                date={day[0]}
+                measure={apiData?.hourly_units.temperature_2m}
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      <DayDiagram times={getTimes(apiData?.hourly.time)} measures={temps} />
     </div>
   );
 };

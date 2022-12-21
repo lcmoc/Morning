@@ -40,6 +40,13 @@ export const getDates = (times: string[]): String[] => {
   return dates;
 };
 
+export const getDate = (date: any): Date => {
+  const parts = date.split('T', 2);
+  const currentDate: Date = parts[0];
+
+  return currentDate;
+};
+
 export const getCurrentDayTimes = (dates: string[]): String[] => {
   const currentDayTimes = dates.filter((date: string) => {
     return getDataFromCurrentDate(date);
@@ -49,7 +56,7 @@ export const getCurrentDayTimes = (dates: string[]): String[] => {
 };
 
 export const getTimes = (times: string[]): string[] => {
-  const currentTimes = times.splice(0, 24).map((oneDate: string) => {
+  const currentTimes = times.slice(0, 24).map((oneDate: string) => {
     const parts = oneDate.split('T', 2);
     const times = parts[1];
     return times;

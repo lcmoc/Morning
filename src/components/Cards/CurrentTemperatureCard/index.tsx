@@ -1,48 +1,36 @@
-import {
-  Card,
-  CardActionArea,
-  CardProps,
-  Typography,
-  styled,
-} from '@mui/material';
-
 import React from 'react';
+import { getDate } from '../../Helpers';
 
 interface CurrentTemperatureCardProps {
-  temperature: number;
-  time: string;
+  temperature: number[];
+  date: any;
   measure: string;
 }
 
-const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexDirection: 'column',
-  cursor: 'default',
-}));
+const checkIfItsToday = (weekday: string): boolean => {
+  const newDate = new Date();
+  return newDate.toLocaleDateString('de', { weekday: 'long' }) === weekday;
+};
 
 const CurrentTemperatureCard = ({
   temperature,
-  time,
+  date,
   measure,
 }: CurrentTemperatureCardProps): JSX.Element => {
-  const currentHour = time.split('T').splice(1)[0];
-  const nextHour = parseInt(currentHour) + 1;
+  const newDate = new Date(getDate(date));
+  const weekday = newDate.toLocaleDateString('de', { weekday: 'long' });
+  const maxTemp = temperature.reduce((a, b) => Math.max(a, b));
+  const minTemp = temperature.reduce((a, b) => Math.min(a, b)); // 1
 
   return (
-    <Card sx={{ maxWidth: 800, minWidth: 300 }}>
-      <CardActionArea>
-        <StyledCard>
-          <Typography variant="h6" color="text.secondary">
-            {currentHour} - {`${nextHour}:00`}
-          </Typography>
-          <Typography gutterBottom variant="h5" component="div">
-            {`${temperature} ${measure}`}
-          </Typography>
-        </StyledCard>
-      </CardActionArea>
-    </Card>
+    <button className="flex flex-col p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 h-60 w-40 xl:w-40 xl:h-72 mb-24">
+      <h5 className="mb-2 text-sm lg:text-xl font-bold tracking-tight text-gray-900 text-center">
+        {checkIfItsToday(weekday) ? 'Heute' : weekday}
+      </h5>
+      <p className="font-normal text-gray-700 dark:text-gray-400">
+        {`${maxTemp} - ${minTemp} ${measure}`}
+      </p>
+    </button>
   );
 };
 

@@ -1,5 +1,6 @@
 import { Grid, Link, Paper, PaperProps, styled } from '@mui/material';
 
+import Logo from '../../assets/book-apple.svg';
 import React from 'react';
 
 const StyledPaper = styled(Paper)<PaperProps>(({ theme }) => ({
@@ -24,7 +25,7 @@ const Footer = (): JSX.Element => {
     <StyledPaper elevation={3}>
       <Grid container spacing={1}>
         <FooterGird item xs={2}>
-          <p>Logo</p>
+          <img src={Logo} alt="Logo" />
         </FooterGird>
         <FooterGird item xs={2}>
           <FooterLinks>Home</FooterLinks>

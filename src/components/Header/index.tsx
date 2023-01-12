@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import { Cookies } from 'react-cookie';
 import IconButton from '@mui/material/IconButton';
+import Logo from '../../assets/book-apple.svg';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -65,7 +66,7 @@ const Header = (): JSX.Element => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            <img src={Logo} alt="Logo" />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

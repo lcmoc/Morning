@@ -5,6 +5,7 @@ import Header from '../Header';
 import Home from '../../screens/Home';
 import Login from '../Login';
 import React from 'react';
+import Sbb from '../../screens/Sbb';
 import Weather from '../../screens/Weather';
 import { useCookies } from 'react-cookie';
 
@@ -23,6 +24,10 @@ const [cookies, setCookie] = useCookies(['userIsLoggedIn']); //eslint-disable-li
         <Route
           path="/weather"
           element={(cookies.userIsLoggedIn as boolean) && <Weather />}
+        />
+        <Route
+          path="/sbb"
+          element={(cookies.userIsLoggedIn as boolean) && <Sbb />}
         />
       </Routes>
       {/* <Footer /> */}

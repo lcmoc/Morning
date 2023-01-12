@@ -25,7 +25,7 @@ const Home = (): JSX.Element => (
             name="sbb"
             txt="See sbb connections"
             imgSrc={SbbPng}
-            path="someLink"
+            path="/sbb"
             alt="u-bahn image"
           />
         </div>

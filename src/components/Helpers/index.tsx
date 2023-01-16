@@ -56,6 +56,10 @@ export const getCurrentDayTimes = (dates: string[]): String[] => {
 };
 
 export const getJourneyTime = (time: string): string => {
+  if (time === '') {
+    return '';
+  }
+
   const daysRest = time.split('d', 2);
   const hourTimeSec = daysRest[1].split(':', 2);
   const finalTime = `${hourTimeSec[0]}:${hourTimeSec[1]}`;
@@ -64,6 +68,10 @@ export const getJourneyTime = (time: string): string => {
 };
 
 export const getSbbTime = (time: string): string => {
+  if (time === '') {
+    return '';
+  }
+
   const dateTime = time.split('T', 2);
   const timePart = dateTime[1];
   const hourMinSecPlus = timePart.split(':', 3);

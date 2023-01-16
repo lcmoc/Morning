@@ -69,25 +69,90 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {connectionDepartures.map((connection: any) => (
+          {connectionDepartures.map((connection: any, index: number) => (
             <ExpandableTableRow
-              key={connection.from.departure}
+              key={connection}
               expandComponent={
-                <TableCell colSpan={5}>
-                  {getSbbTime(connection.from.departure)}
-                </TableCell>
+                <div key={index}>
+                  <TableCell component="th" scope="row">
+                    {connectionDepartures.map(
+                      (currentConnection: any, currentIndex: number) => {
+                      console.log('currentConnection', currentConnection?.sections[currentIndex]); // eslint-disable-line
+                        const departureTime: string = getSbbTime(
+                          currentConnection?.sections[currentIndex]?.departure
+                            ?.departure,
+                        );
+
+                        const arrivalTime: string = getSbbTime(
+                          currentConnection?.sections[currentIndex]?.arrival
+                            ?.arrival,
+                        );
+
+                        return (
+                          <div key={`${departureTime}-${index}`}>
+                            <p className="pt-2">{departureTime}</p>
+                            <p className="pt-2">{arrivalTime}</p>
+                          </div>
+                        );
+                      },
+                    )}
+                  </TableCell>
+
+                  <TableCell align="left">
+                    {connectionDepartures.map(
+                      (currentConnection: any, currentIndex: number) => {
+                        console.log('currentConnection.sections[currentIndex]', currentConnection?.sections[currentIndex]?.departure?.station?.name); // eslint-disable-line
+                        const departureStation: string =
+                          currentConnection?.sections[currentIndex]?.departure
+                            ?.station?.name;
+
+                        const arrivalStation: string =
+                          currentConnection?.sections[currentIndex]?.arrival
+                            ?.station?.name;
+
+                        return (
+                          <div key={`${departureStation}-${index}`}>
+                            <p className="pt-2">{departureStation}</p>
+                            <p className="pt-2">{arrivalStation}</p>
+                          </div>
+                        );
+                      },
+                    )}
+                  </TableCell>
+
+                  <TableCell align="left">
+                    {connectionDepartures.map(
+                      (currentConnection: any, currentIndex: number) => {
+                        const departurePlatform: string =
+                          currentConnection?.sections[currentIndex]?.departure
+                            ?.platform;
+
+                        const arrivalPlatform: string =
+                          currentConnection?.sections[currentIndex]?.arrival
+                            ?.platform;
+
+                        return (
+                          <div key={`${departurePlatform}-${index}`}>
+                            <p className="pt-2">{departurePlatform}</p>
+                            <p className="pt-2">{arrivalPlatform}</p>
+                          </div>
+                        );
+                      },
+                    )}
+                  </TableCell>
+                </div>
               }
             >
               <TableCell component="th" scope="row">
                 <div className="flex items-start justify-start flex-col">
-                  <p>{getSbbTime(connection.from.departure)}</p>
-                  <p className="pt-2"> {getSbbTime(connection.to.arrival)}</p>
+                  <p>{getSbbTime(connection?.from?.departure)}</p>
+                  <p className="pt-2"> {getSbbTime(connection?.to?.arrival)}</p>
                 </div>
               </TableCell>
               <TableCell align="right">
                 <div className="flex items-start justify-start flex-col">
-                  {getJourneyTime(connection.duration)}
-                  {getTrains(connection.products)}
+                  {getJourneyTime(connection?.duration)}
+                  {getTrains(connection?.products)}
                 </div>
               </TableCell>
               <TableCell align="right">{connection?.from?.platform}</TableCell>

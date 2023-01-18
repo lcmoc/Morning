@@ -77,10 +77,8 @@ export const getSbbTime = (time: string): string => {
   const hourMinSecPlus = timePart.split(':', 3);
   const hour = hourMinSecPlus[0];
   const min = hourMinSecPlus[1];
-  const plus = hourMinSecPlus[2];
-  const minSec = Array.from(plus);
 
-  const finalTime = `${hour}:${min} +${minSec[3]}${minSec[4]}`;
+  const finalTime = `${hour}:${min}`;
 
   return finalTime;
 };

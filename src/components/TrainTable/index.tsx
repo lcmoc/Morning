@@ -1,10 +1,10 @@
+import React, { useId } from 'react';
 import { getJourneyTime, getSbbTime } from '../../components/Helpers';
 
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material//KeyboardArrowUp';
 import Paper from '@mui/material/Paper';
-import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -50,6 +50,7 @@ interface TrainTableProps {
 const getTrains = (trains: any, time: string): JSX.Element => {
   return (
     <div className="flex items-center justify-center flex-row">
+      <p className="pr-2 pt-2">Verbindungen:</p>
       {trains.map((train: string, index: number) => {
         return (
           <p className="pr-2 pt-2" key={`train-${train}-time${time}-${index}`}>
@@ -60,6 +61,9 @@ const getTrains = (trains: any, time: string): JSX.Element => {
     </div>
   );
 };
+
+const DEPARTURE: string = 'Abfahrt:';
+const ARRIVAL: string = 'Ankunft:';
 
 const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
   return (
@@ -81,95 +85,100 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
         <TableBody>
           {connectionDepartures.map((connection: any, index: number) => (
             <ExpandableTableRow
-              key={connection.sections[index].departure.departure}
+              key={`${
+                connection.sections[index]?.from?.departureTimestamp as string
+              }-${useId()}`}
               expandComponent={
                 <>
                   <TableCell align="left">
-                    {connectionDepartures.map(
-                      (currentConnection: any, currentIndex: number) => {
-                        const departureTime: string = getSbbTime(
-                          currentConnection?.sections[currentIndex]?.departure
-                            ?.departure || '',
-                        );
+                    {connection?.sections.map((section: any) => {
+                      const departureTime: string = getSbbTime(
+                        section?.departure?.departure || '',
+                      );
 
-                        const arrivalTime: string = getSbbTime(
-                          currentConnection?.sections[currentIndex]?.arrival
-                            ?.arrival || '',
-                        );
+                      const arrivalTime: string = getSbbTime(
+                        section?.arrival?.arrival || '',
+                      );
 
-                        return (
-                          <div
-                            key={`times-departure-${departureTime}-arrival-${arrivalTime}-${index}`}
-                          >
-                            <p className="pt-2">{departureTime}</p>
-                            <p className="pt-2">{arrivalTime}</p>
-                          </div>
-                        );
-                      },
-                    )}
+                      const haveToWalk: boolean = section?.walk;
+                      const walkTime: number =
+                        haveToWalk && section.walk.duration;
+                      const minutes = Math.floor(walkTime / 60);
+
+                      return (
+                        <div
+                          key={`times-departure-${departureTime}-${useId()}`}
+                        >
+                          <p className="pt-2">
+                            {`${!haveToWalk ? DEPARTURE : 'Laufen'} ${
+                              !haveToWalk ? departureTime : `${minutes} min`
+                            }`}
+                          </p>
+                          <p>
+                            {ARRIVAL} {arrivalTime}
+                          </p>
+                        </div>
+                      );
+                    })}
                   </TableCell>
 
                   <TableCell align="left">
-                    {connectionDepartures.map(
-                      (currentConnection: any, currentIndex: number) => {
-                        const departureStation: string =
-                          currentConnection?.sections[currentIndex]?.departure
-                            ?.station?.name || '';
+                    {connection?.sections.map((section: any) => {
+                      const departureStation: string =
+                        section?.departure?.station?.name || '';
 
-                        const arrivalStation: string =
-                          currentConnection?.sections[currentIndex]?.arrival
-                            ?.station?.name || '';
+                      const arrivalStation: string =
+                        section?.arrival?.station?.name || '';
 
-                        return (
-                          <div
-                            key={`stations-departure-${departureStation}-arrival-${arrivalStation}-${index}`}
-                          >
-                            <p className="pt-2">{departureStation}</p>
-                            <p className="pt-2">{arrivalStation}</p>
-                          </div>
-                        );
-                      },
-                    )}
+                      return (
+                        <div
+                          key={`stations-departure-${departureStation}-${useId()}`}
+                        >
+                          <p className="pt-2">{departureStation}</p>
+                          <p>{arrivalStation}</p>
+                        </div>
+                      );
+                    })}
                   </TableCell>
 
                   <TableCell align="left">
-                    {connectionDepartures.map(
-                      (currentConnection: any, currentIndex: number) => {
-                        const departurePlatform: string =
-                          currentConnection?.sections[currentIndex]?.departure
-                            ?.platform || '';
+                    {connection?.sections.map((section: any) => {
+                      const departurePlatform: string =
+                        section?.departure?.platform || '1';
 
-                        const arrivalPlatform: string =
-                          currentConnection?.sections[currentIndex]?.arrival
-                            ?.platform || '';
+                      const arrivalPlatform: string =
+                        section?.arrival?.platform || '1';
 
-                        return (
-                          <div
-                            key={`${departurePlatform}-${index}-${currentIndex}`}
-                          >
-                            <p className="pt-2">{departurePlatform}</p>
-                            <p className="pt-2">{arrivalPlatform}</p>
-                          </div>
-                        );
-                      },
-                    )}
+                      return (
+                        <div key={`${departurePlatform}-${useId()}`}>
+                          <p className="pt-2">Gleis {departurePlatform}</p>
+                          <p>Gleis {arrivalPlatform}</p>
+                        </div>
+                      );
+                    })}
                   </TableCell>
                 </>
               }
             >
               <TableCell component="th" scope="row">
                 <div className="flex items-start justify-start flex-col">
-                  <p>{getSbbTime(connection?.from?.departure)}</p>
-                  <p className="pt-2"> {getSbbTime(connection?.to?.arrival)}</p>
+                  <p>
+                    {DEPARTURE} {getSbbTime(connection?.from?.departure)}
+                  </p>
+                  <p className="pt-2">
+                    {ARRIVAL} {getSbbTime(connection?.to?.arrival)}
+                  </p>
                 </div>
               </TableCell>
               <TableCell align="right">
                 <div className="flex items-start justify-start flex-col">
-                  {getJourneyTime(connection?.duration)}
+                  Dauer: {getJourneyTime(connection?.duration)} h
                   {getTrains(connection?.products, connection?.from?.departure)}
                 </div>
               </TableCell>
-              <TableCell align="right">{connection?.from?.platform}</TableCell>
+              <TableCell align="left">
+                Gleis {connection?.from?.platform || '1'}
+              </TableCell>
             </ExpandableTableRow>
           ))}
         </TableBody>

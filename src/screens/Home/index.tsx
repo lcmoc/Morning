@@ -11,37 +11,53 @@ const Home = (): JSX.Element => (
         Morning
       </h1>
     </div>
-    <Grid
-      container
-      spacing={0}
-      direction="row"
-      alignItems="start"
-      justifyContent="space-around"
-      style={{ minHeight: '100vh' }}
-    >
-      <Grid item xs={12} sm={6}>
-        <div className="p-2 ml-14">
-          <HomeCard
-            name="SBB"
-            txt="See SBB connections"
-            imgSrc={SbbPng}
-            path="/sbb"
-            alt="u-bahn image"
-          />
-        </div>
+    <div className="flex justify-center items-center">
+      <Grid
+        container
+        spacing={0}
+        direction="row"
+        alignItems="start"
+        justifyContent="center"
+        style={{ minHeight: '100vh' }}
+      >
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          container
+          alignItems="start"
+          justifyContent="center"
+        >
+          <div className="p-2">
+            <HomeCard
+              name="SBB"
+              txt="See SBB connections"
+              imgSrc={SbbPng}
+              path="/sbb"
+              alt="u-bahn image"
+            />
+          </div>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          container
+          alignItems="start"
+          justifyContent="center"
+        >
+          <div className="p-2">
+            <HomeCard
+              name="Weather"
+              txt="See the Weather of today"
+              imgSrc={WeatherPng}
+              path="/weather"
+              alt="Wetter icons"
+            />
+          </div>
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={6}>
-        <div className="p-2 ml-14">
-          <HomeCard
-            name="Weather"
-            txt="See the Weather of today"
-            imgSrc={WeatherPng}
-            path="/weather"
-            alt="Wetter icons"
-          />
-        </div>
-      </Grid>
-    </Grid>
+    </div>
   </>
 );
 

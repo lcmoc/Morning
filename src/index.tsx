@@ -1,7 +1,5 @@
 import './index.css';
 
-import * as remote from '@syncstate/remote-client';
-
 import App from './App';
 import { CookiesProvider } from 'react-cookie';
 import { Provider } from '@syncstate/react';
@@ -10,9 +8,7 @@ import ReactDOM from 'react-dom/client';
 import { createDocStore } from '@syncstate/core';
 import reportWebVitals from './reportWebVitals';
 
-const store = createDocStore({ isMenuOpen: false, userIsLoggedIn: false }, [
-  remote.createInitializer(),
-]);
+const store = createDocStore({ isMenuOpen: false, userIsLoggedIn: false });
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

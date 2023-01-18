@@ -47,8 +47,18 @@ interface TrainTableProps {
   connectionDepartures: any;
 }
 
-const getTrains = (trains: any): JSX.Element => {
-  return <div className='flex items-center justify-center flex-row'>{ trains.map((train: any, index: number) => <p className='pr-2 pt-2' key={`train-${train}-${index}`}>{train}</p>)}</div>; // eslint-disable-line
+const getTrains = (trains: any, time: string): JSX.Element => {
+  return (
+    <div className="flex items-center justify-center flex-row">
+      {trains.map((train: string, index: number) => {
+        return (
+          <p className="pr-2 pt-2" key={`train-${train}-time${time}-${index}`}>
+            {train}
+          </p>
+        );
+      })}
+    </div>
+  );
 };
 
 const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
@@ -71,25 +81,26 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
         <TableBody>
           {connectionDepartures.map((connection: any, index: number) => (
             <ExpandableTableRow
-              key={connection}
+              key={connection.sections[index].departure.departure}
               expandComponent={
-                <div key={index}>
-                  <TableCell component="th" scope="row">
+                <>
+                  <TableCell align="left">
                     {connectionDepartures.map(
                       (currentConnection: any, currentIndex: number) => {
-                      console.log('currentConnection', currentConnection?.sections[currentIndex]); // eslint-disable-line
                         const departureTime: string = getSbbTime(
                           currentConnection?.sections[currentIndex]?.departure
-                            ?.departure,
+                            ?.departure || '',
                         );
 
                         const arrivalTime: string = getSbbTime(
                           currentConnection?.sections[currentIndex]?.arrival
-                            ?.arrival,
+                            ?.arrival || '',
                         );
 
                         return (
-                          <div key={`${departureTime}-${index}`}>
+                          <div
+                            key={`times-departure-${departureTime}-arrival-${arrivalTime}-${index}`}
+                          >
                             <p className="pt-2">{departureTime}</p>
                             <p className="pt-2">{arrivalTime}</p>
                           </div>
@@ -101,17 +112,18 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
                   <TableCell align="left">
                     {connectionDepartures.map(
                       (currentConnection: any, currentIndex: number) => {
-                        console.log('currentConnection.sections[currentIndex]', currentConnection?.sections[currentIndex]?.departure?.station?.name); // eslint-disable-line
                         const departureStation: string =
                           currentConnection?.sections[currentIndex]?.departure
-                            ?.station?.name;
+                            ?.station?.name || '';
 
                         const arrivalStation: string =
                           currentConnection?.sections[currentIndex]?.arrival
-                            ?.station?.name;
+                            ?.station?.name || '';
 
                         return (
-                          <div key={`${departureStation}-${index}`}>
+                          <div
+                            key={`stations-departure-${departureStation}-arrival-${arrivalStation}-${index}`}
+                          >
                             <p className="pt-2">{departureStation}</p>
                             <p className="pt-2">{arrivalStation}</p>
                           </div>
@@ -125,14 +137,16 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
                       (currentConnection: any, currentIndex: number) => {
                         const departurePlatform: string =
                           currentConnection?.sections[currentIndex]?.departure
-                            ?.platform;
+                            ?.platform || '';
 
                         const arrivalPlatform: string =
                           currentConnection?.sections[currentIndex]?.arrival
-                            ?.platform;
+                            ?.platform || '';
 
                         return (
-                          <div key={`${departurePlatform}-${index}`}>
+                          <div
+                            key={`${departurePlatform}-${index}-${currentIndex}`}
+                          >
                             <p className="pt-2">{departurePlatform}</p>
                             <p className="pt-2">{arrivalPlatform}</p>
                           </div>
@@ -140,7 +154,7 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
                       },
                     )}
                   </TableCell>
-                </div>
+                </>
               }
             >
               <TableCell component="th" scope="row">
@@ -152,7 +166,7 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
               <TableCell align="right">
                 <div className="flex items-start justify-start flex-col">
                   {getJourneyTime(connection?.duration)}
-                  {getTrains(connection?.products)}
+                  {getTrains(connection?.products, connection?.from?.departure)}
                 </div>
               </TableCell>
               <TableCell align="right">{connection?.from?.platform}</TableCell>

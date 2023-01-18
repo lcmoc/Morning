@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+import Button from '@mui/material/Button';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import SendIcon from '@mui/icons-material/Send';
 import TextField from '@mui/material/TextField';
 import TrainTable from '../../components/TrainTable';
 
@@ -25,10 +27,6 @@ const Sbb = (): JSX.Element => {
     }
   }
 
-  console.log(
-    `https://transport.opendata.ch/v1/connections?from=${journeyStartPoint}&to=Wintertuhr`,
-  ); // eslint-disable-line
-
   useEffect(() => {
     getDataFromAPI()
       .then((data: any) => {
@@ -47,14 +45,10 @@ const Sbb = (): JSX.Element => {
     );
   }
 
-  // von Station
-  // console.log('xxx', apiData.connections[0].from.departure); // eslint-disable-line
-  // Bis Station
-  // console.log('xxx', apiData.connections[0].to.departure); // eslint-disable-line
-
-  // console.log('xxx', apiData.connections[0].sections[0].journey.passList[0].station.name); // eslint-disable-line
-
-  console.log('xxx', apiData.connections[0].sections);
+  const handleChange = (value: string): void => {
+    send && setSend(false);
+    setJourneyStartPoint(value);
+  };
 
   return (
     <div className="h-screen mt-24">
@@ -71,10 +65,18 @@ const Sbb = (): JSX.Element => {
             id="outlined-required"
             label="Startpunkt"
             type="text"
-            onChange={(event) => setJourneyStartPoint(event?.target?.value)}
+            onChange={(event) => handleChange(event?.target?.value || '')}
             value={journeyStartPoint}
           />
-          <input type="submit" onClick={() => setSend(true)} />
+          <Button
+            variant="contained"
+            endIcon={<SendIcon />}
+            type="submit"
+            style={{ textTransform: 'none', marginLeft: '20px' }}
+            onClick={() => setSend(true)}
+          >
+            Suchen
+          </Button>
         </div>
       </div>
 

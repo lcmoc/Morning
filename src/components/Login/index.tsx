@@ -33,12 +33,12 @@ const Login = (): JSX.Element => {
 
   return (
     <div className="w-full h-screen flex items-center justify-start flex-col">
-      <h1 className="text-6xl font-normal leading-normal mt-0 mb-2 text-sky-800">
+      <h1 className="text-6xl font-normal leading-normal mt-4  text-red-800">
         Einloggen
       </h1>
 
       <form onSubmit={(event) => send(event)}>
-        <div className="flex items-center justify-around flex-col mt-24 border-2 drop-shadow-xl border-blue-400 rounded bg-gray-100 w-fit">
+        <div className="flex items-center justify-around flex-col mt-24 border-2 drop-shadow-xl border-red-400 rounded bg-red-100 w-fit">
           <div className="flex items-center justify-around flex-row p-4">
             <Grid
               container
@@ -85,8 +85,13 @@ const Login = (): JSX.Element => {
               </Grid>
             </Grid>
           </div>
-          <div className="mt-6 p-4">
-            <Button variant="contained" endIcon={<SendIcon />} type="submit">
+          <div className="mt-3 p-4">
+            <Button
+              variant="outlined"
+              color="error"
+              endIcon={<SendIcon />}
+              type="submit"
+            >
               Überprüfen
             </Button>
           </div>

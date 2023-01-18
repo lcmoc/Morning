@@ -10,7 +10,7 @@ import Weather from '../../screens/Weather';
 import { useCookies } from 'react-cookie';
 
 const Content = (): JSX.Element => {
-const [cookies, setCookie] = useCookies(['userIsLoggedIn']); //eslint-disable-line
+  const [cookies, setCookie] = useCookies(['userIsLoggedIn']); //eslint-disable-line
 
   return (
     <Router>

@@ -24,19 +24,19 @@ const HomeCard = ({
 }: HomeCardProps): JSX.Element => {
   return (
     <Link href={path} style={{ textDecoration: 'none' }}>
-      <Card sx={{ maxWidth: 800 }}>
+      <Card sx={{ maxWidth: 650 }} style={{ border: 'red 3px solid' }}>
         <CardActionArea>
           <CardContent>
             <CardMedia
               component="img"
-              height="60"
+              height="50"
               image={imgSrc}
               alt={alt}
-              style={{ width: '40%' }}
+              style={{ width: '50%' }}
             />
           </CardContent>
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h4" component="div">
               {name}
             </Typography>
             <Typography variant="body2" color="text.secondary">

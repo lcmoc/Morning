@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import { Cookies } from 'react-cookie';
 import IconButton from '@mui/material/IconButton';
-import Logo from '../../assets/book-apple.svg';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -14,6 +13,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useDoc } from '@syncstate/react';
+import { pink } from '@mui/material/colors';
+import morninglogo from '../../assets/morninglogo.png';
+import './styles.css';
 
 const Header = (): JSX.Element => {
   const [isMenuOpen, setIsMenuOpen] = useDoc('/isMenuOpen'); //eslint-disable-line
@@ -48,26 +50,12 @@ const Header = (): JSX.Element => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ background: 'coral', width: '100%' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            <img src={Logo} alt="Logo" />
-          </Typography>
+          <a className="morninglogo" href="/">
+            <img className="morninglogo" src={morninglogo} alt="logo" />
+          </a>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -106,16 +94,17 @@ const Header = (): JSX.Element => {
             href=""
             sx={{
               mr: 2,
+              ml: 3,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
+            className="morninglogo"
           >
-            LOGO
+            Morninglogo
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -128,11 +117,10 @@ const Header = (): JSX.Element => {
               </Button>
             ))}
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mr: 3 }}>
+                <Avatar src="/broken-image.jpg" sx={{ bgcolor: pink[200] }} />
               </IconButton>
             </Tooltip>
             <Menu

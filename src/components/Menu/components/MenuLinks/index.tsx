@@ -14,7 +14,7 @@ const MenuLinks = (): JSX.Element => {
   const MenuLink = ({ link, txt, children }: MenuLinksProps): JSX.Element => (
     <a
       href={link}
-      className="w-32 p-4 flex flex-col items-center justify-center hover:text-blue-300 text-lg cursor-pointer"
+      className="w-32 p-4 flex flex-col items-center justify-center hover:text-red-300 text-lg cursor-pointer"
     >
       {children}
       {txt}
@@ -22,7 +22,7 @@ const MenuLinks = (): JSX.Element => {
   );
 
   return (
-    <div className="flex items-center justify-center bg-blue-900 rounded-3xl bg-opacity-80 text-white w-auto">
+    <div className="flex items-center justify-center bg-red-900 rounded-3xl bg-opacity-80 text-white w-auto">
       <MenuLink link="/sbb" alt="sbb icon" txt="Sbb">
         <TrainSharpIcon fontSize="large" />
       </MenuLink>

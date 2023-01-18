@@ -47,7 +47,7 @@ const Menu = (): JSX.Element => {
         >
           <div className="relative w-full min-h-screen">
             <div
-              className={classNames('absolute w-full h-auto bg-white', {
+              className={classNames('absolute w-full h-auto bg-rose-50', {
                 'rounded-xl': isMenuOpen,
               })}
             >
@@ -56,8 +56,8 @@ const Menu = (): JSX.Element => {
           </div>
         </div>
         <div className="flex items-center justify-center">
-          <div className="shadow two absolute w-full h-screen top-0 left-0 rounded-xl bg-blue-900"></div>
-          <div className="shadow one absolute w-full h-screen top-0 left-0 rounded-xl bg-blue-800"></div>
+          <div className="shadow two absolute w-full h-screen top-0 left-0 rounded-xl bg-red-400"></div>
+          <div className="shadow one absolute w-full h-screen top-0 left-0 rounded-xl bg-red-500"></div>
         </div>
       </div>
       <div

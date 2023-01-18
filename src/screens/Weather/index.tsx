@@ -68,7 +68,7 @@ const Weather = (): JSX.Element => {
   return (
     <div className="h-screen mt-24">
       <div className="flex items-center justify-center">
-        <h1 className="text-6xl font-normal leading-normal mt-0 mb-2 text-sky-800">
+        <h1 className="text-6xl leading-normal mt-3 mb-2 text-red-700">
           Wetter
         </h1>
       </div>

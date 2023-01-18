@@ -25,7 +25,9 @@ const Sbb = (): JSX.Element => {
     }
   }
 
-  console.log(`https://transport.opendata.ch/v1/connections?from=${journeyStartPoint}&to=Wintertuhr`); // eslint-disable-line
+  console.log(
+    `https://transport.opendata.ch/v1/connections?from=${journeyStartPoint}&to=Wintertuhr`,
+  ); // eslint-disable-line
 
   useEffect(() => {
     getDataFromAPI()
@@ -55,9 +57,9 @@ const Sbb = (): JSX.Element => {
   console.log('xxx', apiData.connections[0].sections);
 
   return (
-    <div className="h-screen">
-      <div className="flex items-center justify-center mb-32">
-        <h1 className="text-6xl font-normal leading-normal mt-0 mb-2 text-sky-800">
+    <div className="h-screen mt-24">
+      <div className="flex items-center justify-center">
+        <h1 className="text-6xl leading-normal mt-3 mb-2 text-red-700">
           Bahnverbindung
         </h1>
       </div>

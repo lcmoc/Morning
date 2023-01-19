@@ -29,6 +29,7 @@ const Sbb = (): JSX.Element => {
   }
 
   useEffect(() => {
+    console.log('triggered' ); // eslint-disable-line
     getDataFromAPI()
       .then((data: any) => {
         setApiData(data);
@@ -46,10 +47,18 @@ const Sbb = (): JSX.Element => {
     );
   }
 
-  const handleChange = (value: string): void => {
-    send && setSend(false);
-    setJourneyStartPoint(value);
+  const handleSubmit = (event: any): void => {
+    event.preventDefault();
+    setSend(true);
   };
+
+  const handleChange = (event: any): void => {
+    event.preventDefault();
+    setJourneyStartPoint(event.target.value);
+    send && setSend(false);
+  };
+
+  console.log('xxx', send, journeyStartPoint); // eslint-disable-line
 
   return (
     <div className="h-screen mt-24">
@@ -66,7 +75,7 @@ const Sbb = (): JSX.Element => {
             id="outlined-required"
             label="Startpunkt"
             type="text"
-            onChange={(event) => handleChange(event?.target?.value || '')}
+            onChange={(event) => handleChange(event)}
             value={journeyStartPoint}
           />
           <Button
@@ -74,7 +83,7 @@ const Sbb = (): JSX.Element => {
             endIcon={<SendIcon />}
             type="submit"
             style={{ textTransform: 'none', marginLeft: '20px' }}
-            onClick={() => setSend(true)}
+            onClick={() => handleSubmit}
           >
             Suchen
           </Button>

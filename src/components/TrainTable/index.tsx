@@ -67,10 +67,13 @@ const ARRIVAL: string = 'Ankunft:';
 
 const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
   return (
-    <Paper style={{ width: '100%', overflowX: 'auto' }}>
+    <Paper
+      sx={{ Width: { lg: '100%' } }}
+      style={{ width: '100%', overflowX: 'auto' }}
+    >
       <Table
         style={{
-          minWidth: 650,
+          minWidth: '100%',
         }}
         aria-label="simple table"
       >

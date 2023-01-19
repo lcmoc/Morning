@@ -54,7 +54,7 @@ const Sbb = (): JSX.Element => {
   return (
     <div className="h-screen mt-24">
       <div className="flex items-center justify-center">
-        <h1 className="text-6xl leading-normal mt-3 mb-2 text-red-700 TitleScreen">
+        <h1 className="lg:text-6xl md:text-6xl text-4xl leading-normal mt-3 mb-2 text-red-700 TitleScreen">
           Bahnverbindung
         </h1>
       </div>
@@ -62,6 +62,7 @@ const Sbb = (): JSX.Element => {
       <div className="w-full flex items-center justify-center mb-4">
         <div className="flex items-center justify-around flex-row p-4">
           <TextField
+            color="error"
             required
             id="outlined-required"
             label="Startpunkt"

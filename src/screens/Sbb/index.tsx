@@ -5,6 +5,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import SendIcon from '@mui/icons-material/Send';
 import TextField from '@mui/material/TextField';
 import TrainTable from '../../components/TrainTable';
+import '../Home/styles.css';
 
 interface ApiData {
   time: [];
@@ -53,7 +54,7 @@ const Sbb = (): JSX.Element => {
   return (
     <div className="h-screen mt-24">
       <div className="flex items-center justify-center">
-        <h1 className="text-6xl leading-normal mt-3 mb-2 text-red-700">
+        <h1 className="text-6xl leading-normal mt-3 mb-2 text-red-700 TitleScreen">
           Bahnverbindung
         </h1>
       </div>
@@ -69,7 +70,7 @@ const Sbb = (): JSX.Element => {
             value={journeyStartPoint}
           />
           <Button
-            variant="contained"
+            color="error"
             endIcon={<SendIcon />}
             type="submit"
             style={{ textTransform: 'none', marginLeft: '20px' }}

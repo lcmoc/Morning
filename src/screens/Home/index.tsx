@@ -3,11 +3,12 @@ import HomeCard from '../../components/Cards/HomeCard';
 import React from 'react';
 import SbbPng from '../../assets/u-bahn.png';
 import WeatherPng from '../../assets/weather.png';
+import './styles.css';
 
 const Home = (): JSX.Element => (
   <>
     <div className="flex items-center justify-center mt-24 mb-24">
-      <h1 className="lg:text-8xl md:text-8xl text-5xl  leading-normal mt-0 mb-2 text-red-700">
+      <h1 className="lg:text-8xl md:text-8xl text-5xl  leading-normal mt-0 mb-2 text-red-700 TitleScreen">
         Morning
       </h1>
     </div>

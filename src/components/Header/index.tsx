@@ -53,10 +53,11 @@ const Header = (): JSX.Element => {
     <AppBar position="static" style={{ background: 'coral', width: '100%' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <a className="morninglogo" href="/">
-            <img className="morninglogo" src={morninglogo} alt="logo" />
-          </a>
-
+          <Box sx={{ display: { sm: 'none', xs: 'none' } }}>
+            <a className="MorningLogo" href="/">
+              <img className="morninglogo" src={morninglogo} alt="logo" />
+            </a>
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -87,25 +88,11 @@ const Header = (): JSX.Element => {
               }}
             ></Menu>
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              ml: 3,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-            className="morninglogo"
-          >
-            Morninglogo
-          </Typography>
+          <Box className="BoxMorningLogosm" sx={{ display: { xs: 'flex' } }}>
+            <a className="MorningLogosm" href="/">
+              <img className="morninglogo" src={morninglogo} alt="logo" />
+            </a>
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button

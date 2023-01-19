@@ -7,7 +7,7 @@ import WeatherPng from '../../assets/weather.png';
 const Home = (): JSX.Element => (
   <>
     <div className="flex items-center justify-center mt-24 mb-24">
-      <h1 className="text-8xl leading-normal mt-0 mb-2 text-red-700">
+      <h1 className="lg:text-8xl md:text-8xl text-5xl  leading-normal mt-0 mb-2 text-red-700">
         Morning
       </h1>
     </div>

@@ -24,7 +24,7 @@ const HomeCard = ({
 }: HomeCardProps): JSX.Element => {
   return (
     <Link href={path} style={{ textDecoration: 'none' }}>
-      <Card sx={{ maxWidth: 650 }} style={{ border: 'red 3px solid' }}>
+      <Card sx={{ maxWidth: 650 }}>
         <CardActionArea>
           <CardContent>
             <CardMedia

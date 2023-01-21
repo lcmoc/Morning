@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '@mui/material/Button';
 import { Grid } from '@mui/material';
+import LoadingSpinner from '../LoadingSpinner';
 import SendIcon from '@mui/icons-material/Send';
 import TextField from '@mui/material/TextField';
-import testData from './testdata.json';
 import { useCookies } from 'react-cookie';
 
 const Login = (): JSX.Element => {
@@ -12,9 +12,43 @@ const Login = (): JSX.Element => {
   const [password, setPassword] = useState<String | any>('');
   const [error, setError] = useState<boolean>(false);
   const [cookies, setCookie] = useCookies(['userIsLoggedIn']); //eslint-disable-line
+  const [apiData, setApiData] = useState<any | null>(null);
+
+  interface ApiData {
+    time: [];
+  }
+
+  async function getDataFromAPI(): Promise<ApiData | undefined> {
+    try {
+      const response = await fetch(
+        'https://morning-backend-production.up.railway.app/students',
+      );
+
+      return await response.json();
+    } catch (error) {
+      console.error(error); //eslint-disable-line
+    }
+  }
+
+  useEffect(() => {
+    getDataFromAPI()
+      .then((data: any) => {
+        setApiData(data);
+      })
+      .catch((error) => {
+        console.error(error); //eslint-disable-line
+      });
+  }, []);
+  if (apiData === null) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center flex-col">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   const checkCredentials = (email: string, password: string): void => {
-    for (const entry of testData.students) {
+    for (const entry of apiData) {
       if (entry.email === email && entry.password === password) {
         setCookie('userIsLoggedIn', true, {
           path: '/',

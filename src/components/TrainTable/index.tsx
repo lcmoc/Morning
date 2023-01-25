@@ -68,10 +68,12 @@ const ARRIVAL: string = 'Ankunft:';
 const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
   return (
     <Paper
+      className="Tablesbb"
       sx={{ Width: { lg: '100%' } }}
       style={{ width: '100%', overflowX: 'auto' }}
     >
       <Table
+        className="Tablesbb"
         style={{
           minWidth: '100%',
         }}

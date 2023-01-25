@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import SendIcon from '@mui/icons-material/Send';
-import TextField from '@mui/material/TextField';
+import { TextField } from '@mui/material';
 import TrainTable from '../../components/TrainTable';
 import '../Home/styles.css';
 
@@ -29,7 +29,6 @@ const Sbb = (): JSX.Element => {
   }
 
   useEffect(() => {
-    console.log('triggered' ); // eslint-disable-line
     getDataFromAPI()
       .then((data: any) => {
         setApiData(data);
@@ -47,18 +46,10 @@ const Sbb = (): JSX.Element => {
     );
   }
 
-  const handleSubmit = (event: any): void => {
-    event.preventDefault();
-    setSend(true);
-  };
-
-  const handleChange = (event: any): void => {
-    event.preventDefault();
-    setJourneyStartPoint(event.target.value);
+  const handleChange = (value: string): void => {
     send && setSend(false);
+    setJourneyStartPoint(value);
   };
-
-  console.log('xxx', send, journeyStartPoint); // eslint-disable-line
 
   return (
     <div className="h-screen mt-24">
@@ -76,7 +67,7 @@ const Sbb = (): JSX.Element => {
             id="outlined-required"
             label="Startpunkt"
             type="text"
-            onChange={(event) => handleChange(event)}
+            onChange={(event) => handleChange(event?.target?.value || '')}
             value={journeyStartPoint}
           />
           <Button
@@ -84,15 +75,14 @@ const Sbb = (): JSX.Element => {
             endIcon={<SendIcon />}
             type="submit"
             style={{ textTransform: 'none', marginLeft: '20px' }}
-            onClick={() => handleSubmit}
+            onClick={() => setSend(true)}
           >
             Suchen
           </Button>
         </div>
       </div>
-
-      <div className="flex items-center justify-center w-full">
-        <div className="w-82">
+      <div className="flex items-center justify-center w-full ">
+        <div className="max-w-3xl">
           <TrainTable connectionDepartures={apiData?.connections} />
         </div>
       </div>

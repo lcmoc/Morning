@@ -75,7 +75,7 @@ const Weather = (): JSX.Element => {
         </h1>
       </div>
 
-      <div className="flex items-center justify-center mr-8 ml-8 overflow-x-auto">
+      <div className="flex items-center justify-start xl:justify-center overflow-x-auto w-full">
         {dayRefs.current.map((day: any, index: any): JSX.Element => {
           return (
             <div

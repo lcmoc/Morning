@@ -79,12 +79,16 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
         }}
         aria-label="simple table"
       >
-        <TableHead>
-          <TableRow>
+        <TableHead style={{ width: '100%' }}>
+          <TableRow style={{ width: '100%' }}>
             <TableCell padding="checkbox" />
-            <TableCell>Zeit</TableCell>
-            <TableCell align="left">Reise</TableCell>
-            <TableCell align="left">Platform</TableCell>
+            <TableCell style={{ minWidth: '130px' }}>Zeit</TableCell>
+            <TableCell style={{ minWidth: '130px' }} align="left">
+              Reise
+            </TableCell>
+            <TableCell style={{ minWidth: '130px' }} align="left">
+              Platform
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

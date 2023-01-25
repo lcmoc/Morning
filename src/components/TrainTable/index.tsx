@@ -1,10 +1,10 @@
-import React, { useId } from 'react';
 import { getJourneyTime, getSbbTime } from '../../components/Helpers';
 
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material//KeyboardArrowUp';
 import Paper from '@mui/material/Paper';
+import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -15,6 +15,9 @@ interface ExpandableTableRowTypes {
   children: any;
   expandComponent: any;
 }
+
+const DEPARTURE: string = 'Abfahrt:';
+const ARRIVAL: string = 'Ankunft:';
 
 const ExpandableTableRow = ({
   children,
@@ -62,9 +65,6 @@ const getTrains = (trains: any, time: string): JSX.Element => {
   );
 };
 
-const DEPARTURE: string = 'Abfahrt:';
-const ARRIVAL: string = 'Ankunft:';
-
 const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
   return (
     <Paper
@@ -92,11 +92,9 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {connectionDepartures.map((connection: any, index: number) => (
+          {connectionDepartures?.map((connection: any, index: number) => (
             <ExpandableTableRow
-              key={`${
-                connection.sections[index]?.from?.departureTimestamp as string
-              }-${useId()}`}
+              key={`ExpandableTableRow-${index}`}
               expandComponent={
                 <>
                   <TableCell align="left">
@@ -115,9 +113,7 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
                       const minutes = Math.floor(walkTime / 60);
 
                       return (
-                        <div
-                          key={`times-departure-${departureTime}-${useId()}`}
-                        >
+                        <div key={`times-departure-${departureTime}-${index}}`}>
                           <p className="pt-2">
                             {`${!haveToWalk ? DEPARTURE : 'Laufen'} ${
                               !haveToWalk ? departureTime : `${minutes} min`
@@ -141,7 +137,7 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
 
                       return (
                         <div
-                          key={`stations-departure-${departureStation}-${useId()}`}
+                          key={`stations-departure-${departureStation}-${index}`}
                         >
                           <p className="pt-2">{departureStation}</p>
                           <p>{arrivalStation}</p>
@@ -151,20 +147,24 @@ const TrainTable = ({ connectionDepartures }: TrainTableProps): JSX.Element => {
                   </TableCell>
 
                   <TableCell align="left">
-                    {connection?.sections.map((section: any) => {
-                      const departurePlatform: string =
-                        section?.departure?.platform || '1';
+                    {connection?.sections.map(
+                      (section: any, currentIndex: number) => {
+                        const departurePlatform: string =
+                          section?.departure?.platform || '1';
 
-                      const arrivalPlatform: string =
-                        section?.arrival?.platform || '1';
+                        const arrivalPlatform: string =
+                          section?.arrival?.platform || '1';
 
-                      return (
-                        <div key={`${departurePlatform}-${useId()}`}>
-                          <p className="pt-2">Gleis {departurePlatform}</p>
-                          <p>Gleis {arrivalPlatform}</p>
-                        </div>
-                      );
-                    })}
+                        return (
+                          <div
+                            key={`departurePlatform-${departurePlatform}-${currentIndex}`}
+                          >
+                            <p className="pt-2">Gleis {departurePlatform}</p>
+                            <p>Gleis {arrivalPlatform}</p>
+                          </div>
+                        );
+                      },
+                    )}
                   </TableCell>
                 </>
               }

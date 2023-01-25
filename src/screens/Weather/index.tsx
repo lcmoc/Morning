@@ -1,10 +1,11 @@
+import '../Home/styles.css';
+
 import React, { useEffect, useRef, useState } from 'react';
 
 import CurrentTemperatureCard from '../../components/Cards/CurrentTemperatureCard';
 import DayDiagram from '../../components/Diagrams/DayDiagram';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { getTimes } from '../../components/Helpers';
-import '../Home/styles.css';
 
 interface ApiData {
   time: [];
@@ -67,7 +68,7 @@ const Weather = (): JSX.Element => {
   }
 
   return (
-    <div className="h-screen mt-24">
+    <div className="min-h-screen mt-24">
       <div className="flex items-center justify-center">
         <h1 className="lg:text-6xl md:text-6xl text-4xl leading-normal mt-3 mb-2 text-red-700 TitleScreen">
           Wetter

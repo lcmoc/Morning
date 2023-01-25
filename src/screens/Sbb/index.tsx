@@ -1,3 +1,5 @@
+import '../Home/styles.css';
+
 import React, { useEffect, useState } from 'react';
 
 import Button from '@mui/material/Button';
@@ -5,7 +7,6 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import SendIcon from '@mui/icons-material/Send';
 import { TextField } from '@mui/material';
 import TrainTable from '../../components/TrainTable';
-import '../Home/styles.css';
 
 interface ApiData {
   time: [];
@@ -21,6 +22,8 @@ const Sbb = (): JSX.Element => {
       const response = await fetch(
         `https://transport.opendata.ch/v1/connections?from=${journeyStartPoint}&to=Wintertuhr`,
       );
+
+      console.log('response', response); // eslint-disable-line
 
       return await response.json();
     } catch (error) {
@@ -38,6 +41,8 @@ const Sbb = (): JSX.Element => {
       });
   }, [send]);
 
+  console.log('apiData', apiData); // eslint-disable-line
+
   if (apiData === null) {
     return (
       <div className="h-screen w-full flex items-center justify-center flex-col">
@@ -46,13 +51,15 @@ const Sbb = (): JSX.Element => {
     );
   }
 
-  const handleChange = (value: string): void => {
-    send && setSend(false);
-    setJourneyStartPoint(value);
+  const handleClick = (event: any): void => {
+    event.preventDefault();
+    setSend(true);
   };
 
+  const connections = apiData?.connections;
+
   return (
-    <div className="h-screen mt-24">
+    <div className="min-h-screen mt-24 bg-rose-50">
       <div className="flex items-center justify-center">
         <h1 className="lg:text-6xl md:text-6xl text-4xl leading-normal mt-3 mb-2 text-red-700 TitleScreen">
           Bahnverbindung
@@ -67,23 +74,23 @@ const Sbb = (): JSX.Element => {
             id="outlined-required"
             label="Startpunkt"
             type="text"
-            onChange={(event) => handleChange(event?.target?.value || '')}
             value={journeyStartPoint}
+            onChange={(event) => setJourneyStartPoint(event.target.value)}
           />
           <Button
             color="error"
             endIcon={<SendIcon />}
             type="submit"
             style={{ textTransform: 'none', marginLeft: '20px' }}
-            onClick={() => setSend(true)}
+            onClick={(event) => handleClick(event)}
           >
             Suchen
           </Button>
         </div>
       </div>
       <div className="flex items-center justify-center w-full ">
-        <div className="max-w-3xl">
-          <TrainTable connectionDepartures={apiData?.connections} />
+        <div className="max-w-3xl mb-12">
+          <TrainTable connectionDepartures={connections} />
         </div>
       </div>
     </div>

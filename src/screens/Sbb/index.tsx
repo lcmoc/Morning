@@ -56,6 +56,12 @@ const Sbb = (): JSX.Element => {
     setSend(true);
   };
 
+  const handleChange = (event: any): void => {
+    event.preventDefault();
+    send && setSend(false);
+    setJourneyStartPoint(event.target.value);
+  };
+
   const connections = apiData?.connections;
 
   return (
@@ -75,7 +81,7 @@ const Sbb = (): JSX.Element => {
             label="Startpunkt"
             type="text"
             value={journeyStartPoint}
-            onChange={(event) => setJourneyStartPoint(event.target.value)}
+            onChange={(event) => handleChange(event)}
           />
           <Button
             color="error"

@@ -23,8 +23,6 @@ const Sbb = (): JSX.Element => {
         `https://transport.opendata.ch/v1/connections?from=${journeyStartPoint}&to=Wintertuhr`,
       );
 
-      console.log('response', response); // eslint-disable-line
-
       return await response.json();
     } catch (error) {
       console.error(error); //eslint-disable-line
@@ -40,8 +38,6 @@ const Sbb = (): JSX.Element => {
         console.error(error); //eslint-disable-line
       });
   }, [send]);
-
-  console.log('apiData', apiData); // eslint-disable-line
 
   if (apiData === null) {
     return (
